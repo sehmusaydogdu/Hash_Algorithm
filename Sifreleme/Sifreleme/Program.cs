@@ -11,6 +11,7 @@ namespace Sifreleme
             Console.Write("Şifrenizi giriniz  : ");
             string sifre = Console.ReadLine();
 
+           
             StringCalculator.Cryptology(sifre);
             //string tempKey = StringConvert.ToBinary(StringConvert.ConvertToByteArray(sifre, Encoding.ASCII)).Trim().Replace(" ", string.Empty);
            // Console.WriteLine(tempKey);

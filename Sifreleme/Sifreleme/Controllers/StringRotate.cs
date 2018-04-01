@@ -60,13 +60,13 @@
         public static string Padding(string value)
         {
             int length = value.Length;
-            while (length % 16 != 0)
+            do
             {
-                if (length % 3 == 0) value += "0";
+                if (length % 2 == 0) value += "0";
                 else value += "1";
 
                 length++;
-            }
+            } while (length <= 192) ;
             return value;
         }  //Padding olayını hallettim. eksik olanları (100100100 şeklinde tamamlıyor.)
     }

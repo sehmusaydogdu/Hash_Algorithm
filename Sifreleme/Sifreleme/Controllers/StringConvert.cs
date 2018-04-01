@@ -16,18 +16,20 @@ namespace Sifreleme.Controllers
         {
             List<string> list = new List<string>();
             StringBuilder builder = new StringBuilder();
+
             foreach (var keyler in userKey.Key64)
             {
-                for (int i = 0; i < keyler.Length; i += 32)
+                for (int i = 0; i < keyler.Length; i += 16)
                 {
-                    string txt = Convert.ToString(Convert.ToInt32(keyler.Substring(i+12, 8)), 16);
+                    int x = Convert.ToInt32(keyler.Substring(i, 4));
+                    string tt = Convert.ToInt32(x.ToString(), 2).ToString();
+                    string txt = Convert.ToString(Convert.ToInt32(tt), 16);
                     builder.Append(txt);
                 }
 
             }
-            // Console.WriteLine(builder);
-            Console.WriteLine("Hash Çıktısı :  "+ builder.ToString().Substring(0, 30).Length);
-            Console.WriteLine("\n\n"+builder.ToString().Substring(0,30));
+            Console.WriteLine(builder.ToString().Length);
+            Console.WriteLine("\n\n"+builder);
         }
     }
 }
