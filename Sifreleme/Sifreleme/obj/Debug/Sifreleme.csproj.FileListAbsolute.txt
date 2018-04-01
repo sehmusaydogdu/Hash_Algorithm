@@ -1,0 +1,7 @@
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\bin\Debug\Sifreleme.exe.config
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\bin\Debug\Sifreleme.exe
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\bin\Debug\Sifreleme.pdb
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\obj\Debug\Sifreleme.csprojResolveAssemblyReference.cache
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\obj\Debug\Sifreleme.csproj.CoreCompileInputs.cache
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\obj\Debug\Sifreleme.exe
+C:\Users\acer\Desktop\Sifreleme\Sifreleme\obj\Debug\Sifreleme.pdb
