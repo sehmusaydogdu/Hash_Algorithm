@@ -37,11 +37,11 @@ namespace LoginApp.Views
         private bool PassWordLenght(string password) => password.Length >= 8 && password.Length <= 16 ? true : false;
         private bool TxtNullAble(Information info, Users user)
         {
-            if (info.name.Trim() == "" || info.name == "Adınızı Giriniz") return false;
-            else if (info.surname.Trim() == "" || info.surname == "Soyadınızı Giriniz") return false;
-            else if (txtPasswordAgain.Text.Trim() == "" || txtPasswordAgain.Text == "Şifrenizi (Tekrar) Giriniz") return false;
-            else if (user.password.Trim() == "" || user.password == "Şifrenizi Giriniz") return false;
-            else if (user.username.Trim() == "" || user.username == "Kullanıcı Adını Giriniz") return false;
+            if (info.name.Trim() == "" || info.name.Equals("Adınızı Giriniz")) return false;
+            else if (info.surname.Trim() == "" || info.surname.Equals("Soyadınızı Giriniz")) return false;
+            else if (txtPasswordAgain.Text.Trim() == "" || txtPasswordAgain.Text.Equals("Şifrenizi (Tekrar) Giriniz")) return false;
+            else if (user.password.Trim() == "" || user.password.Equals("Şifrenizi Giriniz")) return false;
+            else if (user.username.Trim() == "" || user.username.Equals("Kullanıcı Adını Giriniz")) return false;
 
             return true;
         }
@@ -60,6 +60,7 @@ namespace LoginApp.Views
                     user.password = Cryptology.Controllers.HashCalculator.Cryptology(user.password,info.createTime);
                     ctx.Users.Add(user);
                     ctx.Information.Add(info);
+
                     await ctx.SaveChangesAsync();
                     MessageBox.Show("Kayıt başarılı bir şekilde gerçekleştirildi.");  
                 }
@@ -81,12 +82,8 @@ namespace LoginApp.Views
                     if (ValidationPassword(txtPassword.Text, txtPasswordAgain.Text))
                     {
                         if (PassWordLenght(user.password))
-                        {
                             await OnSaveInformation(user, info);
-                            btnKayitOl.Text = "Kayıt Ol";
-                            btnKayitOl.Enabled = true;
-                            btnKayitOl.BackColor = Color.FromArgb(255, 192, 192);
-                        }
+
                         else
                             MessageBox.Show("Girilen şifre 8 ile 16 karakter arasında olmalıdır.", "Dikkat", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -106,10 +103,13 @@ namespace LoginApp.Views
             {
                 MessageBox.Show($"Hata :  {ex.Message}","Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
+            finally
+            {
+                btnKayitOl.Text = "Kayıt Ol";
+                btnKayitOl.Enabled = true;
+                btnKayitOl.BackColor = Color.FromArgb(255, 192, 192);
+            }
         }
-        
-
-
         private void btnUyeKayit_Click(object sender, EventArgs e)
         {
             UyeGirisi uyeGirisi = new UyeGirisi();

@@ -14,7 +14,6 @@ namespace LoginApp
             InitializeComponent();
         }
 
-
         //Kullanıcı (şifreyi göster) seçeneğini işaretlerse şifreyi görebilecek ve seçeneği kaldırırsa şifre gizlenecek.
         private void chkParola_CheckedChanged(object sender, EventArgs e)
         {
@@ -89,6 +88,7 @@ namespace LoginApp
                             Information info = await ctx.Information.FirstOrDefaultAsync(k => k.userId == user.userId);
                             if (info == null)
                                 MessageBox.Show("Kayıt Bulunamadı.");
+
                             else
                             {
                                 string hashSifre = Cryptology.Controllers.HashCalculator.Cryptology(txtPassword.Text, info.createTime);
@@ -100,9 +100,6 @@ namespace LoginApp
                             }
 
                         }
-                        btnGirisYap.Text = "Giriş Yap";
-                        btnGirisYap.Enabled = true;
-                        btnGirisYap.BackColor = Color.FromArgb(255, 192, 192);
                     }
                 }
             }
@@ -113,6 +110,12 @@ namespace LoginApp
             catch (Exception ex)
             {
                 MessageBox.Show($"Hata :  {ex.Message}", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnGirisYap.Text = "Giriş Yap";
+                btnGirisYap.Enabled = true;
+                btnGirisYap.BackColor = Color.FromArgb(255, 192, 192);
             }
         }
     }
