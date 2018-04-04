@@ -14,8 +14,12 @@ namespace LoginApp
             InitializeComponent();
         }
 
-        //Kullanıcı (şifreyi göster) seçeneğini işaretlerse şifreyi görebilecek ve seçeneği kaldırırsa şifre gizlenecek.
-        private void chkParola_CheckedChanged(object sender, EventArgs e)
+        /// <summary>
+        ///  Kullanıcı (şifreyi göster) seçeneğini işaretlerse şifreyi görebilecek ve seçeneği kaldırırsa şifre gizlenecek.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkParola_CheckedChanged(object sender, EventArgs e)
         {
             if (chkParola.Checked)
                 txtPassword.UseSystemPasswordChar = false;
@@ -23,8 +27,12 @@ namespace LoginApp
                 txtPassword.UseSystemPasswordChar = true;
         }
 
-        
-        private void txtUserName_Enter(object sender, EventArgs e)
+        /// <summary>
+        /// Başlangıçta kullanıcıya yol göstermesi için veri giriş alanından yönlendirme yapıyorum
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtUserName_Enter(object sender, EventArgs e)
         {
             if (txtUserName.Text.Equals("Kullanıcı Adı"))
             {
@@ -32,7 +40,13 @@ namespace LoginApp
                 txtUserName.ForeColor = Color.Blue;
             }
         }
-        private void txtUserName_Leave(object sender, EventArgs e)
+
+        /// <summary>
+        /// Kullanıcı veri giriş alanına hiç bir değer girmez ise ipucunu tekrar gösteriyorum.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtUserName_Leave(object sender, EventArgs e)
         {
             if (txtUserName.Text == "")
             {
@@ -41,7 +55,12 @@ namespace LoginApp
             }
         }
 
-        private void txtPassword_Enter(object sender, EventArgs e)
+        /// <summary>
+        ///  Başlangıçta kullanıcıya yol göstermesi için veri giriş alanından yönlendirme yapıyorum
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtPassword_Enter(object sender, EventArgs e)
         {
             if (txtPassword.Text.Equals("Parola"))
             {
@@ -49,7 +68,13 @@ namespace LoginApp
                 txtPassword.ForeColor = Color.Blue;
             }
         }
-        private void txtPassword_Leave(object sender, EventArgs e)
+
+        /// <summary>
+        /// Kullanıcı veri giriş alanına hiç bir değer girmez ise ipucunu tekrar gösteriyorum.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TxtPassword_Leave(object sender, EventArgs e)
         {
             if (txtPassword.Text == "")
             {
@@ -58,17 +83,30 @@ namespace LoginApp
             }
         }
 
-        private void btnHesapOlustur_Click(object sender, EventArgs e)
+
+        /// <summary>
+        /// Üye Kayıt ekranına yönlendiriyorum.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnHesapOlustur_Click(object sender, EventArgs e)
         {
             UyeKayit uyeKayit = new UyeKayit();
             this.Hide();
             uyeKayit.Show();
         }
 
-        private async void btnGirisYap_ClickAsync(object sender, EventArgs e)
+
+        /// <summary>
+        /// Bilgileri Veritabanına gönderdiğim metotdur.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void BtnGirisYap_ClickAsync(object sender, EventArgs e)
         {
             try
             {
+                //Kullanıcının veritabanına ipucu olarak gösterdiğim verileri göndermesini engelliyorum.
                 if (txtUserName.Text.Equals("Kullanıcı Adı") || txtPassword.Text.Equals("Parola"))
                     MessageBox.Show("Kullanıcı Adı ve Parola boş geçilemez.","Bilgi",MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
                 else
@@ -77,24 +115,31 @@ namespace LoginApp
                     btnGirisYap.Text = "Gönderiliyor..";
                     btnGirisYap.Enabled = false;
 
-                    using (PersonelEntities ctx = new PersonelEntities())
+                    using (PersonelEntities ctx = new PersonelEntities())  //Bağlantı nesnesi oluşturuyorum.
                     {
+                        //Daha önceden aynı bilgilerle kayıt olmuş kullanıcı var mı? diye kontrol ediyorum.
+                        //Böyle bir kullanıcı var ise (Users) tablosundan (userId,username,password)
                         Users user = await ctx.Users.FirstOrDefaultAsync(k => k.username.Equals(txtUserName.Text));
 
+                        //(null) ise böyle bir kayıt bulunamadı.
                         if (user == null)
                             MessageBox.Show("Böyle bir kayıt bulunamadı.", "Uyarı", MessageBoxButtons.OK, MessageBoxIcon.Question);
                         else
                         {
+                            //Kayıt var ise (Information) tablosuna gidip bilgileri alıyorum. (userId,name,surname,creatime)
                             Information info = await ctx.Information.FirstOrDefaultAsync(k => k.userId == user.userId);
+
                             if (info == null)
                                 MessageBox.Show("Kayıt Bulunamadı.");
 
                             else
                             {
+                                //Kullanıcı login olurken aldğım şifreyi ilk giriş yaptığı tarih(private key) ile şifreliyorum.
                                 string hashSifre = Cryptology.Controllers.HashCalculator.Cryptology(txtPassword.Text, info.createTime);
 
+                                //şifreler doğru ise kullanıcıyı sisteme alıyorum
                                 if (hashSifre.Equals(user.password))
-                                    MessageBox.Show("Tebrikler şifreyi doğru girdiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("Tebrikler. Kullanıcı adı ve Şifreyi doğru girdiniz.", "Bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 else
                                     MessageBox.Show("Hatalı giriş yaptınız.", "Hata", MessageBoxButtons.OK, MessageBoxIcon.Question);
                             }

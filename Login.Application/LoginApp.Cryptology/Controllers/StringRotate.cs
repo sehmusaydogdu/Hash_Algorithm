@@ -50,12 +50,12 @@
         {
             shift %= key.Length;
             return key.Substring(shift) + key.Substring(0, shift);
-        }  // Bitleri sola kaydırma işlemini yapıyor.
+        }  // Bitleri (shift) adeti kadar sola kaydırma işlemini yapıyor.
         public static string RightRotateShift(string key, int shift)
         {
             shift %= key.Length;
             return key.Substring(key.Length - shift) + key.Substring(0, key.Length - shift);
-        }  //Bitleri sağa kaydırma işlemini yapıyor.
+        }  //Bitleri (shift) adeti kadar sağa kaydırma işlemini yapıyor.
 
         public static string Padding(string value)
         {
@@ -72,6 +72,6 @@
                 }
             }
             return value;
-        }  //Padding olayını hallettim. eksik olanları (100100100 şeklinde tamamlıyor.)
+        }  //Padding olayı gerçekleşiyor. Eksik olanları (100100100...) şeklinde tamamlıyor.
     }
 }

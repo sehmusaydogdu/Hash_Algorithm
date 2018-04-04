@@ -51,7 +51,7 @@
             this.btnGirisYap.TabIndex = 5;
             this.btnGirisYap.Text = "Giriş Yap";
             this.btnGirisYap.UseVisualStyleBackColor = false;
-            this.btnGirisYap.Click += new System.EventHandler(this.btnGirisYap_ClickAsync);
+            this.btnGirisYap.Click += new System.EventHandler(this.BtnGirisYap_ClickAsync);
             // 
             // txtUserName
             // 
@@ -63,8 +63,8 @@
             this.txtUserName.TabIndex = 2;
             this.txtUserName.Text = "Kullanıcı Adı";
             this.txtUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtUserName.Enter += new System.EventHandler(this.txtUserName_Enter);
-            this.txtUserName.Leave += new System.EventHandler(this.txtUserName_Leave);
+            this.txtUserName.Enter += new System.EventHandler(this.TxtUserName_Enter);
+            this.txtUserName.Leave += new System.EventHandler(this.TxtUserName_Leave);
             // 
             // chkParola
             // 
@@ -78,7 +78,7 @@
             this.chkParola.TabIndex = 1;
             this.chkParola.Text = "Şifreyi Göster";
             this.chkParola.UseVisualStyleBackColor = true;
-            this.chkParola.CheckedChanged += new System.EventHandler(this.chkParola_CheckedChanged);
+            this.chkParola.CheckedChanged += new System.EventHandler(this.ChkParola_CheckedChanged);
             // 
             // txtPassword
             // 
@@ -91,8 +91,8 @@
             this.txtPassword.TabIndex = 3;
             this.txtPassword.Text = "Parola";
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
-            this.txtPassword.Leave += new System.EventHandler(this.txtPassword_Leave);
+            this.txtPassword.Enter += new System.EventHandler(this.TxtPassword_Enter);
+            this.txtPassword.Leave += new System.EventHandler(this.TxtPassword_Leave);
             // 
             // groupKullaniciGirisi
             // 
@@ -104,7 +104,7 @@
             this.groupKullaniciGirisi.Controls.Add(this.chkParola);
             this.groupKullaniciGirisi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.groupKullaniciGirisi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.groupKullaniciGirisi.Location = new System.Drawing.Point(30, 21);
+            this.groupKullaniciGirisi.Location = new System.Drawing.Point(20, 17);
             this.groupKullaniciGirisi.Name = "groupKullaniciGirisi";
             this.groupKullaniciGirisi.Size = new System.Drawing.Size(332, 442);
             this.groupKullaniciGirisi.TabIndex = 10;
@@ -132,14 +132,15 @@
             this.btnHesapOlustur.TabIndex = 6;
             this.btnHesapOlustur.Text = "Hesap Oluştur";
             this.btnHesapOlustur.UseVisualStyleBackColor = false;
-            this.btnHesapOlustur.Click += new System.EventHandler(this.btnHesapOlustur_Click);
+            this.btnHesapOlustur.Click += new System.EventHandler(this.BtnHesapOlustur_Click);
             // 
             // UyeGirisi
             // 
+            this.AcceptButton = this.btnGirisYap;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(393, 484);
+            this.ClientSize = new System.Drawing.Size(372, 477);
             this.Controls.Add(this.groupKullaniciGirisi);
             this.Name = "UyeGirisi";
             this.Text = "Üye Giriş Sistemi";

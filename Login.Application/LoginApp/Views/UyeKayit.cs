@@ -15,53 +15,35 @@ namespace LoginApp.Views
             InitializeComponent();
         }
 
-        private void btnTemizle_Click(object sender, EventArgs e)
-        {
-            txtName.Text = "Adınızı Giriniz"; 
-            txtLastName.Text = "Soyadınızı Giriniz"; 
-            txtUserName.Text = "Kullanıcı Adını Giriniz"; 
-            txtPassword.Text = "Şifrenizi Giriniz"; 
-            txtPasswordAgain.Text = "Şifrenizi (Tekrar) Giriniz";
 
-            txtName.ForeColor = Color.Silver;
-            txtLastName.ForeColor = Color.Silver;
-            txtUserName.ForeColor = Color.Silver;
-            txtName.ForeColor = Color.Silver;
-            txtPassword.ForeColor = Color.Silver;
-            txtPasswordAgain.ForeColor = Color.Silver;
-            chkParola.Checked = false;
-            MessageBox.Show("Temizlendi.");
-        }
 
-        private bool ValidationPassword(string password, string againPassword) => password == againPassword ? true : false;
-        private bool PassWordLenght(string password) => password.Length >= 8 && password.Length <= 16 ? true : false;
-        private bool TxtNullAble(Information info, Users user)
-        {
-            if (info.name.Trim() == "" || info.name.Equals("Adınızı Giriniz")) return false;
-            else if (info.surname.Trim() == "" || info.surname.Equals("Soyadınızı Giriniz")) return false;
-            else if (txtPasswordAgain.Text.Trim() == "" || txtPasswordAgain.Text.Equals("Şifrenizi (Tekrar) Giriniz")) return false;
-            else if (user.password.Trim() == "" || user.password.Equals("Şifrenizi Giriniz")) return false;
-            else if (user.username.Trim() == "" || user.username.Equals("Kullanıcı Adını Giriniz")) return false;
-
-            return true;
-        }
+        /// <summary>
+        /// Bilgileri Veritabanına gönderdiğim metotdur.
+        /// </summary>
+        /// <param name="user">Information tablosu için gerekli olan bilgileri Server'a gönderiyorum</param>
+        /// <param name="info">User tablosu için gerekli olan bilgileri Server'a gönderiyorum</param>
+        /// <returns></returns>
         private async Task OnSaveInformation(Users user, Information info)
         {
             btnKayitOl.BackColor = Color.Honeydew;
             btnKayitOl.Text = "Gönderiliyor..";
             btnKayitOl.Enabled = false;
             
-            using (PersonelEntities ctx = new PersonelEntities())
+            
+            using (PersonelEntities ctx = new PersonelEntities()) //Bağlantı nesnesi oluşturuyorum.
             {
+                //Daha önceden aynı bilgilerle kayıt olmuş kullanıcı var mı? diye kontrol ediyorum.
                 Users record = await ctx.Users.FirstOrDefaultAsync(k => k.username.Equals(user.username));
 
+                //Kayıt bulunamadı ise (null) değeri döndürüyorum ve bilgileri veritabanına kaydediyorum.
                 if (record == null)
                 {
+                    //Kullanıcının girdiği şifreyi kendi hazırladığım hash algoritmasına şifreliyorum.( Sonuç : 48-bit dönecektir.)
                     user.password = Cryptology.Controllers.HashCalculator.Cryptology(user.password,info.createTime);
                     ctx.Users.Add(user);
                     ctx.Information.Add(info);
 
-                    await ctx.SaveChangesAsync();
+                    await ctx.SaveChangesAsync(); //Değişiklikleri kaydediyorum.
                     MessageBox.Show("Kayıt başarılı bir şekilde gerçekleştirildi.");  
                 }
                 else
@@ -70,11 +52,11 @@ namespace LoginApp.Views
 
         }
 
-        private async void btnKayitOl_ClickAsync(object sender, EventArgs e)
+        private async void BtnKayitOl_ClickAsync(object sender, EventArgs e)
         {
             try
             {
-                Information info = new Information { name = txtName.Text, surname = txtLastName.Text, createTime = DateTime.Now };
+                Information info = new Information { name = txtName.Text.ToUpper(), surname = txtLastName.Text.ToUpper(), createTime = DateTime.Now };
                 Users user = new Users { username = txtUserName.Text, password = txtPassword.Text };
 
                 if (TxtNullAble(info, user))
@@ -110,7 +92,14 @@ namespace LoginApp.Views
                 btnKayitOl.BackColor = Color.FromArgb(255, 192, 192);
             }
         }
-        private void btnUyeKayit_Click(object sender, EventArgs e)
+
+
+        /// <summary>
+        /// Üye Giriş ekranına yönlendiriyorum.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnUyeKayit_Click(object sender, EventArgs e)
         {
             UyeGirisi uyeGirisi = new UyeGirisi();
             this.Hide();

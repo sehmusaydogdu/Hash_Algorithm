@@ -112,7 +112,7 @@
             this.btnTemizle.TabIndex = 8;
             this.btnTemizle.Text = "Temizle";
             this.btnTemizle.UseVisualStyleBackColor = false;
-            this.btnTemizle.Click += new System.EventHandler(this.btnTemizle_Click);
+            this.btnTemizle.Click += new System.EventHandler(this.BtnTemizle_Click);
             // 
             // txtPasswordAgain
             // 
@@ -153,7 +153,7 @@
             this.btnUyeKayit.TabIndex = 9;
             this.btnUyeKayit.Text = "Üye Girişi";
             this.btnUyeKayit.UseVisualStyleBackColor = false;
-            this.btnUyeKayit.Click += new System.EventHandler(this.btnUyeKayit_Click);
+            this.btnUyeKayit.Click += new System.EventHandler(this.BtnUyeKayit_Click);
             // 
             // btnKayitOl
             // 
@@ -167,7 +167,7 @@
             this.btnKayitOl.TabIndex = 7;
             this.btnKayitOl.Text = "Kayıt Ol";
             this.btnKayitOl.UseVisualStyleBackColor = false;
-            this.btnKayitOl.Click += new System.EventHandler(this.btnKayitOl_ClickAsync);
+            this.btnKayitOl.Click += new System.EventHandler(this.BtnKayitOl_ClickAsync);
             // 
             // pictureBox1
             // 
@@ -207,6 +207,7 @@
             // 
             // UyeKayit
             // 
+            this.AcceptButton = this.btnKayitOl;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
