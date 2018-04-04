@@ -1,0 +1,6 @@
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\bin\Debug\LoginApp.Cryptology.dll
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\bin\Debug\LoginApp.Cryptology.pdb
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\obj\Debug\LoginApp.Cryptology.csprojResolveAssemblyReference.cache
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\obj\Debug\LoginApp.Cryptology.csproj.CoreCompileInputs.cache
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\obj\Debug\LoginApp.Cryptology.dll
+C:\Users\acer\Desktop\Login.Application\LoginApp.Cryptology\obj\Debug\LoginApp.Cryptology.pdb
