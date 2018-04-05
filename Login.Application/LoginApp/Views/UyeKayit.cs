@@ -77,10 +77,6 @@ namespace LoginApp.Views
                     MessageBox.Show("Lütfen alanları boş geçmeyiniz.", "Dikkat", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
-            catch(System.Data.Entity.Core.EntityException)
-            {
-                MessageBox.Show("Hata :  İnternet Bağlantınızı kontrol ediniz","Bağlantı Hatası",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Hata :  {ex.Message}","Hata",MessageBoxButtons.OK,MessageBoxIcon.Error);
